@@ -19,10 +19,8 @@ Each event is passed to the handler in this order:
 Provided Handlers
 -----------------
 
-- `pd_aws_lambda.handlers.logger.handler`: log the received event and context.
 - `pd_aws_lambda.handlers.wsgi.handler`: convert HttpAPI requests to WSGI environs.
-- `pd_aws_lambda.handlers.django.handler`: Call Django commands.
-- `pd_aws_lambda.handlers.exec.handler`: Execute any python file.
+- `pd_aws_lambda.handlers.logger.handler`: log the received event and context.
 
 Usage
 -----
@@ -60,7 +58,7 @@ compatible with the `AWS HttpAPI`_ to form an Http response.
 
     def handler(event, context):
         """
-        I handle AWS Lambda events.
+        I handle AWS Lambda invocations.
 
         I print the received event and context.
         """
