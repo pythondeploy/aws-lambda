@@ -145,3 +145,5 @@ dmypy.json
 
 .vscode/*
 poetry.lock
+.env.*
+!.env.example
