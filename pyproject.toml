@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pd_aws_lambda"
-version = "0.1.0"
+version = "0.2.0.dev"
 description = ""
 authors = ["Federico Jaramillo Martínez <federicojaramillom@gmail.com>"]
 license= "BSD-3-Clause"
