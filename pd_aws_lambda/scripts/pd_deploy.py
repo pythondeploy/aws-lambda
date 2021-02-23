@@ -2,62 +2,43 @@
 import argparse
 import json
 import os
-import ssl
 import time
 import urllib.request
 from pathlib import Path
 
 from boto3 import Session
 
-from .helpers import BUILD_FILE_NAME, PD_API_URL, get_build_dir
+from .helpers import (
+    BUILD_FILE_NAME,
+    PD_API_URL,
+    ctx,
+    get_aws_account_information,
+    get_build_dir,
+)
 
 
-ctx = None
-if os.environ.get("PD_SKIP_CERT_VALIDATION") == "skip":
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-
-
-def get_s3_access_data(app_id, api_key):
-    """Retrieve access information from PythonDeploy."""
-    print("Requesting s3 access information")
-
-    jsondata = json.dumps({"action": "temp_s3_access"})
-    jsondataasbytes = jsondata.encode("utf-8")
-
-    req = urllib.request.Request(PD_API_URL.format(app_id=app_id))
-    req.add_header("Content-Length", len(jsondataasbytes))
-    req.add_header("Content-Type", "application/json; charset=utf-8")
-    req.add_header("Authorization", f"Bearer {api_key}")
-    with urllib.request.urlopen(req, jsondataasbytes, context=ctx) as response:
-        s3_access = json.loads(response.read().decode("utf-8"))
-
-    return s3_access
-
-
-def upload_to_s3(s3_access, build_file, s3_path):
+def upload_to_s3(aws_account, build_file, s3_path):
     """
     Upload a local file to a S3 bucket using the provided access data.
 
-    `s3_access` is a dictionary with access information from the
+    `aws_account` is a dictionary with access information from the
     PythonDeploy API.
     """
     print("Uploading file to S3")
     bucket = (
         Session(
-            aws_access_key_id=s3_access["credentials"]["aws_access_key_id"],
-            aws_secret_access_key=s3_access["credentials"]["aws_secret_access_key"],
-            aws_session_token=s3_access["credentials"]["aws_session_token"],
-            region_name=s3_access["credentials"]["region_name"],
+            aws_access_key_id=aws_account["credentials"]["aws_access_key_id"],
+            aws_secret_access_key=aws_account["credentials"]["aws_secret_access_key"],
+            aws_session_token=aws_account["credentials"]["aws_session_token"],
+            region_name=aws_account["credentials"]["region_name"],
         )
         .resource("s3")
-        .Bucket(s3_access["bucket"])
+        .Bucket(aws_account["private_bucket"])
     )
 
     bucket.upload_file(build_file, s3_path)
 
-    s3_url = f"s3://{s3_access['bucket']}/{s3_path}"
+    s3_url = f"s3://{aws_account['private_bucket']}/{s3_path}"
     print(f"Successfully uploaded '{build_file}' to '{s3_url}'")
 
 
@@ -86,14 +67,9 @@ def deploy(app_id, api_key, s3_path):
     if not api_key:
         raise ValueError("Missing Api Key.")
 
-    try:
-        s3_access = get_s3_access_data(app_id, api_key)
-    except urllib.error.HTTPError as error:
-        if error.status == 404:
-            raise ValueError("Invalid or unknown AppId.")
-        raise
+    aws_account = get_aws_account_information(app_id, api_key)
 
-    upload_to_s3(s3_access, build_file, s3_path)
+    upload_to_s3(aws_account, build_file, s3_path)
     lambda_update(app_id, api_key, s3_path)
 
 
@@ -101,9 +77,7 @@ def _deploy_args(parser):
     """Add arguments required to run deploy()."""
     parser.add_argument(
         "--s3-path",
-        help=(
-            "s3 path to upload the ZIP to. Default: 'python_deploy/{timestamp}.zip'"
-        ),
+        help=("s3 path to upload the ZIP to. Default: 'python_deploy/{timestamp}.zip'"),
         default="python_deploy/{timestamp}.zip".format(timestamp=int(time.time())),
     )
     parser.add_argument(

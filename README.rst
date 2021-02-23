@@ -20,6 +20,7 @@ Provided Handlers
 -----------------
 
 - `pd_aws_lambda.handlers.wsgi.handler`: convert HttpAPI requests to WSGI environs.
+- `pd_aws_lambda.handlers.shell.handler`: Run shell commands.
 - `pd_aws_lambda.handlers.logger.handler`: log the received event and context.
 
 Usage
