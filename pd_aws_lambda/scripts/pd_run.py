@@ -18,6 +18,10 @@ class ShellCommandFailed(Exception):
     """The invoked shell command failed."""
 
 
+class UnexpectedResponse(Exception):
+    """The response from the LambdaFunction has an unknown format."""
+
+
 def run_shell(shell_args, log_result, app_id, api_key):
     """
     Run a shell command in the Tasks lambda function.
@@ -55,6 +59,9 @@ def run_shell(shell_args, log_result, app_id, api_key):
         raise LambdaInvocationFailed("Lambda execution failed", response.get("FunctionError"))
 
     result = json.loads(response["Payload"].read().decode())
+
+    if not isinstance(result, dict):
+        raise UnexpectedResponse(result)
 
     if "FunctionError" in response:
         pprint(result["errorMessage"], stream=sys.stderr)
