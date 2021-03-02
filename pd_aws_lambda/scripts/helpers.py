@@ -1,4 +1,4 @@
-"""Define helper used across multiple PythonDeploy scripts."""
+"""Define helpers used across multiple PythonDeploy scripts."""
 import hashlib
 import json
 import os
@@ -25,12 +25,12 @@ def get_build_dir(clean=False):
     """
     Return the directory to use for building the packages.
 
-    If a an environment variable `PD_BUILD_DIR` exists, then its value is used,
-    if not, a temporary directory is generated based on the md5 has of the
+    If an environment variable `PD_BUILD_DIR` exists then its value is used,
+    if not, a temporary directory is generated based on the md5 hash of the
     current working directory absolute path.
 
-    We need a deterministic temp path so the method can be used from
-    different invocations without having to share a state.
+    We need a deterministic temp path so that this method can be used from
+    different processes without having to share a state.
     """
     build_dir = os.environ.get("PD_BUILD_DIR")
     if build_dir:

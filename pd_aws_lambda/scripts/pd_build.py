@@ -43,7 +43,8 @@ def build_package(build_dir):
     file_path = build_dir / BUILD_FILE_NAME
     print("Zipping dependencies' code.")
     subprocess.check_call(
-        ["zip", "-qr9", file_path, ".", "-x", "bin/*"], cwd=build_dir / PACKAGES_DIR_PATH
+        ["zip", "-qr9", file_path, ".", "-x", "bin/*"],
+        cwd=build_dir / PACKAGES_DIR_PATH,
     )
     print("Zipping application's code.")
     subprocess.check_call(
