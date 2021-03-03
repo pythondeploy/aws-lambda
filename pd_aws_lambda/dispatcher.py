@@ -18,7 +18,7 @@ def import_module_attribute(function_path):
 
 # Create a single application instance that will be reused in
 # all the requests that the LambdaFunction processes.
-# Faster than instantiation the application o every request.
+# Faster than instantiating the application in every request.
 #
 # AWS_LAMBDA_FUNCTION_NAME is part of the variables set by AWS.
 # https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-runtime
