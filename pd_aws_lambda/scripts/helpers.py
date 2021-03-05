@@ -15,7 +15,7 @@ PD_API_URL = f"https://{PD_API_DOMAIN}/applications/{{app_id}}/api/"
 
 
 ctx = None
-if os.environ.get("PD_SKIP_CERT_VALIDATION") == "skip":
+if os.environ.get("_PD_SKIP_CERT_VALIDATION") == "skip":
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
