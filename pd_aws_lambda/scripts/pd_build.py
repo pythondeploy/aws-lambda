@@ -47,9 +47,10 @@ def build_package(build_dir):
         cwd=build_dir / PACKAGES_DIR_PATH,
     )
     print("Zipping application's code.")
-    subprocess.check_call(
-        ["zip", "-qr9", file_path, ".", "-x", ".git/*", "-x", ".venv/*"]
-    )
+    zip_args = ["zip", "-qr9", file_path, ".", "-x", ".git/*"]
+    if Path(".pd/build_exclude.lst").is_file():
+        zip_args.append("-x@.pd/build_exclude.lst")
+    subprocess.check_call(zip_args)
 
 
 def build():
