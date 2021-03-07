@@ -68,7 +68,7 @@ compatible with the `AWS HttpAPI`_ to form an Http response.
 
 ----
 
-Developed to be used with Python Deploy.
+Developed to be used with `Python Deploy`_.
 
 
 .. _AWS HttpAPI: https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
