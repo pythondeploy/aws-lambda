@@ -82,7 +82,7 @@ def cloud_formation_wait(aws_account):
     - pd_aws_lambda.exceptions.CloudFormationTransofrmationFailed
     """
     for sleep_time in exponential():
-        print("Checking for CloudFormation changes.")
+        print("Waiting for CloudFormation changes")
         stack_status = (
             Session(
                 aws_access_key_id=aws_account["credentials"]["aws_access_key_id"],

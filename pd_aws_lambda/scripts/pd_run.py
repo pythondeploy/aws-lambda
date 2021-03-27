@@ -26,12 +26,12 @@ def run_shell(shell_args, log_result, app_id, api_key):
     """
     Run a shell command in the Tasks lambda function.
 
-    `stdout` and and `stderr` form the ran command are printed locally
+    `stdout` and and `stderr` from the ran command are printed locally
     in their corresponding stream.
 
-    The python process exits with the same return code form the ran command.
+    The python process exits with the same return code from the command.
 
-    If the lambda function fails to execute, or it is not possible to execute
+    If the lambda function fails to execute or it is not possible to execute
     the shell command, an exception is raised.
     """
     aws_account = get_aws_account_information(app_id, api_key)
