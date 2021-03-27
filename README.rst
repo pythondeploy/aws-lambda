@@ -2,6 +2,8 @@
 Python Deploy AWS Lambda Dispatcher
 ===================================
 
+.. image:: https://badge.fury.io/py/pd-aws-lambda.svg
+    :target: https://badge.fury.io/py/pd-aws-lambda
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/ambv/black
 
