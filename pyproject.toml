@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pd_aws_lambda"
-version = "1.0.1"
+version = "1.0.2.dev"
 description = "Integrate your python applications with AWS Lambda and https://pythondeploy.co/."
 authors = ["Federico Jaramillo Martínez <federicojaramillom@gmail.com>"]
 license= "BSD-3-Clause"
@@ -10,7 +10,7 @@ homepage = "https://github.com/pythondeploy/aws-lambda"
 [tool.poetry.dependencies]
 python = ">=3.7"
 apig-wsgi = ">=2.0.0"
-boto3 = { version = ">=1.0.1", optional = true }
+boto3 = { version = ">=1.0.2.dev", optional = true }
 
 [tool.poetry.dev-dependencies]
 docutils = "*"
