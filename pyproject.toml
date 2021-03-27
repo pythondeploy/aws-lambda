@@ -1,10 +1,11 @@
 [tool.poetry]
 name = "pd_aws_lambda"
 version = "1.0.1.dev"
-description = ""
+description = "Integrate your python applications with AWS Lambda and https://pythondeploy.co/."
 authors = ["Federico Jaramillo Martínez <federicojaramillom@gmail.com>"]
 license= "BSD-3-Clause"
 readme = "README.rst"
+homepage = "https://github.com/pythondeploy/aws-lambda"
 
 [tool.poetry.dependencies]
 python = ">=3.7"
