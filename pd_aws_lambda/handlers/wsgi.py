@@ -13,6 +13,7 @@ def handler(app, event, context):
     environ = get_environ_v2(event, context, binary_support=True)
 
     # https://stackoverflow.com/questions/1885181/how-to-un-escape-a-backslash-escaped-string/57192592#57192592
+    # https://github.com/adamchainz/apig-wsgi/issues/219
     environ["HTTP_COOKIE"] = decode(
         encode(environ["HTTP_COOKIE"], "latin-1", "backslashreplace"), "unicode-escape"
     )
