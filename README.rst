@@ -13,7 +13,7 @@ Events are passed to handlers for processing.
 Each event is passed to the handler in this order:
 
 - Handler defined in the event
-- Http events handler (for WSGI applications)
+- HTTP events handler (for WSGI applications)
 - SQS events handler (if configured)
 - Default handler (if configured)
 - Logger handler (if no default is defined)
@@ -39,7 +39,7 @@ Usage
 
    .. code-block:: ini
 
-    # Python path to the WSGI application that will handle Http requests.
+    # Python path to the WSGI application that will handle HTTP requests.
     PD_WSGI_APPLICATION=my_django_project.wsgi.application
 
     # Python path to the handler for SQS events.
@@ -55,7 +55,7 @@ A handler is a python function that receives an `event` and a `context` and
 does something with them. It can return a value if it makes sense for the type
 of event. For example, HttpAPI handlers like the one we use to call your wsgi
 application (`pd_aws_lambda.handlers.wsgi.handler`) should return a dictionary
-compatible with the `AWS HttpAPI`_ to form an Http response.
+compatible with the `AWS HttpAPI`_ to form an HTTP response.
 
 .. code-block:: python
 
