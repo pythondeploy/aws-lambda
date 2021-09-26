@@ -8,23 +8,32 @@ readme = "README.rst"
 homepage = "https://github.com/pythondeploy/aws-lambda"
 
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = "^3.7"
 apig-wsgi = ">=2.0.0"
-boto3 = { version = ">=2.0.0.dev", optional = true }
+boto3 = { version = ">=1.16.47", optional = true }
+docker = { version = ">=5.0.2", optional = true }
+typer = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
-docutils = "*"
-pygments = "*"
+black = "*"
 bump2version = "*"
+docutils = "*"
+flake8 = "*"
+flake8-bugbear = "*"
+flake8-docstrings = "*"
+flake8-fixme = "*"
+flake8-unused-arguments = "*"
+isort = "*"
+pygments = "*"
+mypy = "*"
+boto3-stubs = {extras = ["ecr", "cloudformation", "lambda"], version = ">=1.16.47"}
 
 [tool.poetry.extras]
-deploy = ["boto3"]
+deploy = ["boto3", "docker"]
 
 [tool.poetry.scripts]
-pd_build_and_deploy = 'pd_aws_lambda.scripts.pd_build_and_deploy:run'
-pd_deploy = 'pd_aws_lambda.scripts.pd_deploy:run'
-pd_build = 'pd_aws_lambda.scripts.pd_build:run'
-pd_run = 'pd_aws_lambda.scripts.pd_run:run'
+python-deploy = 'pd_aws_lambda.cli.main:app'
+pd = 'pd_aws_lambda.cli.main:app'
 
 [build-system]
 requires = ["poetry>=0.12"]
