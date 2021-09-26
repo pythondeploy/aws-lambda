@@ -5,6 +5,8 @@ import ssl
 import urllib.request
 from typing import Any, Dict, Optional
 
+from .. import __version__
+
 import typer
 
 PD_API_DOMAIN = os.environ.get("PD_API_DOMAIN", "api.pythondeploy.co")
@@ -36,6 +38,7 @@ def api_request(
     req.add_header("Content-Length", str(len(jsondataasbytes)))
     req.add_header("Content-Type", "application/json; charset=utf-8")
     req.add_header("Authorization", f"Bearer {api_key}")
+    req.add_header("PD-version", __version__)
 
     try:
         with urllib.request.urlopen(req, jsondataasbytes, context=ctx) as response:
