@@ -46,7 +46,7 @@ def push_to_ecr(aws_account: Dict[str, Any], image_tag: str) -> str:
     )
     docker_image = docker_client.images.get(image_tag)
     docker_image.tag(docker_registry, now_timestamp)
-    push_output = docker_client.images.push(
+    push_output = docker_client.api.push(
         docker_registry, now_timestamp, stream=True, decode=True
     )
     uploaded = False
@@ -54,8 +54,10 @@ def push_to_ecr(aws_account: Dict[str, Any], image_tag: str) -> str:
     for output in push_output:
         last_output = output
         status = output.get("status", None)
-        if status and status.startswith(f"{now_timestamp}: digest: "):
-            uploaded = True
+        if status is not None:
+            typer.echo(status)
+            if status.startswith(f"{now_timestamp}: digest: "):
+                uploaded = True
 
     if not uploaded:
         raise ECRPushFailed(last_output)
