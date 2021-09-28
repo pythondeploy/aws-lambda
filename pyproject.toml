@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pd_aws_lambda"
-version = "2.0.0.dev"
+version = "2.0.0"
 description = "Integrate your python applications with AWS Lambda and https://pythondeploy.co/."
 authors = ["Federico Jaramillo Martínez <federicojaramillom@gmail.com>"]
 license= "BSD-3-Clause"
