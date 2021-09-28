@@ -28,11 +28,11 @@ Provided Handlers
 Usage
 -----
 
-1. Add `pd-aws-lambda` to your application dependencies.
+1. Add `pd_aws_lambda` to your application dependencies.
 
    .. code-block:: console
 
-    poetry add pd-aws-lambda
+    poetry add pd_aws_lambda
 
 2. Set the required environment variables according to your needs in your
    `Python Deploy`_ application configuration.
@@ -70,8 +70,7 @@ compatible with the `AWS HttpAPI`_ to form an HTTP response.
 
 ----
 
-Developed to be used with `Python Deploy`_.
-
+`Python Deploy`_
 
 .. _AWS HttpAPI: https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
 .. _Python Deploy: https://pythondeploy.co
