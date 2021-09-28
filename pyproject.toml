@@ -10,9 +10,6 @@ homepage = "https://github.com/pythondeploy/aws-lambda"
 [tool.poetry.dependencies]
 python = "^3.7"
 apig-wsgi = ">=2.0.0"
-boto3 = { version = ">=1.16.47", optional = true }
-docker = { version = ">=5.0.2", optional = true }
-typer = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 black = "*"
@@ -26,14 +23,6 @@ flake8-unused-arguments = "*"
 isort = "*"
 pygments = "*"
 mypy = "*"
-boto3-stubs = {extras = ["ecr", "cloudformation", "lambda"], version = ">=1.16.47"}
-
-[tool.poetry.extras]
-deploy = ["boto3", "docker"]
-
-[tool.poetry.scripts]
-python-deploy = 'pd_aws_lambda.cli.main:app'
-pd = 'pd_aws_lambda.cli.main:app'
 
 [build-system]
 requires = ["poetry>=0.12"]
